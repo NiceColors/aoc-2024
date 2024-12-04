@@ -13,13 +13,15 @@ numbers = []
  
 text = text.split('mul(')
 
+enable = True
+
 
 for item in text:
 
     aux = ""
 
             
-    if(item[0].isdigit()):
+    if(enable and item[0].isdigit()):
         for letter in item:
             if(letter.isdigit() or (len(aux)>0)and letter == ','):
                 aux += letter
@@ -29,6 +31,17 @@ for item in text:
             else:
                 aux = ""
                 break
+        
+    if("don't()" in item or "do()" in item):
+        enable = "do()" in item
+    if("don't()" in item and "do()" in item):
+        dont_index = item.index("don't()")
+        do_index = item.index("do()")
+        if(dont_index < do_index):
+            enable = False
+        break
+
+  
             
 for number in numbers:
     number = number.split(",")
