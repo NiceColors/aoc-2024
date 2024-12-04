@@ -58,3 +58,32 @@ for i in array:
 
 print(safe_count)
 
+
+# PART TWO
+
+
+safe_count = 0
+count = 0
+
+
+for i in array:
+
+    is_safe = False
+
+    for level in range(len(i)):
+        
+        array_copy = i[:]
+        array_copy.pop(level)
+
+        safety = verify_safety(array_copy)
+        if(safety):
+            print(i, count+1)
+            is_safe = True
+            break
+
+    if is_safe:
+        safe_count+=1
+    count += 1
+    
+print(safe_count)
+
