@@ -96,3 +96,35 @@ def find_phrases(array):
 
 print(len(find_phrases(array)))
 
+# PART TWO 
+
+def find_x_mas(array):
+    counter = []
+
+    def is_x_mas(position, array):
+        r, c = position
+        actual = array[r][c]
+        is_possible_to_do_x = r > 0 and c > 0 and r < len(array) - 1 and c < len(array[0]) - 1
+        if (not is_possible_to_do_x):
+            return False
+        
+        left_up,left_down = [array[r-1][c-1], array[r+1][c-1]]
+
+        right_up,right_down = [array[r-1][c+1], array[r+1][c+1]]
+         
+        diagonal_left = left_up + actual + right_down
+        diagonal_right = left_down + actual + right_up
+
+        if ('MAS' in [diagonal_right, diagonal_right[::-1]] and 'MAS' in [diagonal_left, diagonal_left[::-1]]):    
+            return True
+        else:
+            return False
+        
+    for i in range(len(array)):
+        for j in range(len(array[i])):
+            if (is_x_mas([i, j], array)):
+                counter.append([i, j])
+    return len(counter)
+
+
+print((find_x_mas(array)))
